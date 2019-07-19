@@ -60,7 +60,7 @@ class TasksController extends Controller
         $task = Task::find($id);
 
         return view('tasks.show', [
-            'tasks' => $task,
+            'task' => $task,
         ]);   //
     }
 
@@ -75,7 +75,7 @@ class TasksController extends Controller
         $task = Task::find($id);
 
         return view('tasks.edit', [
-            'tasks' => $task,
+            'task' => $task,
         ]);
     }
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Task;
+use App\User;
 
 class TasksController extends Controller
 {
@@ -14,7 +16,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
+        $task = Auth::user()->tasks()->get();
         return view('tasks.index', [
             'tasks' => $task,
         ]);
@@ -48,7 +50,11 @@ class TasksController extends Controller
         $task = new Task;
         $task->status = $request->status;
         $task->content = $request->content;
+        $task->user_id = $request->user()->id;
         $task->save();
+        
+        
+
 
         return redirect('/');
     }
@@ -115,5 +121,9 @@ class TasksController extends Controller
         $task->delete();
 
         return redirect('/');
+    }
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

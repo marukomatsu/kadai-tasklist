@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MicropostsController@index');
+
+Route::get('/', 'TasksController@index');
 Route::resource('tasks', 'TasksController'); 
 
 // ユーザ登録

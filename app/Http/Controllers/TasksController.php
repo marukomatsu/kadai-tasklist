@@ -57,7 +57,7 @@ class TasksController extends Controller
         
 
 
-        return redirect('/');
+        return redirect('/tasks');
     }
 
     /**

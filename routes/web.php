@@ -11,7 +11,11 @@
 |
 */
 
+
 Route::get('/', 'MicropostsController@index');
+
+
+
 
 Route::resource('tasks', 'TasksController'); 
 

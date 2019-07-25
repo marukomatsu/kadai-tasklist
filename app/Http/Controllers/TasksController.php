@@ -69,7 +69,10 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
+        
+        if (auth()->user()->id !== $task->user_id) {
+           $redirectTo = '/';
+        }
         return view('tasks.show', [
             'task' => $task,
         ]);   //
@@ -84,7 +87,9 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-
+        if (auth()->user()->id !== $task->user_id) {
+           $redirectTo = '/';
+        }
         return view('tasks.edit', [
             'task' => $task,
         ]);
@@ -107,7 +112,7 @@ class TasksController extends Controller
         $task->content = $request->content;
         $task->save();
 
-        return redirect('/');
+        return redirect('/tasks');
     }
 
     /**
@@ -118,7 +123,11 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
+        
         $task = Task::find($id);
+        if (auth()->user()->id !== $task->user_id) {
+           $redirectTo = '/';
+        }
         $task->delete();
 
         return redirect('/tasks');

@@ -76,7 +76,7 @@ class TasksController extends Controller
             ]);   
         }
         
-        $redirectTo = '/';
+        return redirect('/');
         
     }
 
@@ -95,7 +95,7 @@ class TasksController extends Controller
             'task' => $task,
             ]);
         }
-        $redirectTo = '/';
+        return redirect('/');
     }
 
     /**
@@ -131,7 +131,7 @@ class TasksController extends Controller
             $task->delete();
             return redirect('/tasks');
         }
-        $redirectTo = '/';
+        return redirect('/');
         
     }
     public function __construct()

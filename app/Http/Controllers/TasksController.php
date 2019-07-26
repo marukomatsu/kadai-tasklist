@@ -70,12 +70,14 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         
-        if (auth()->user()->id !== $task->user_id) {
-           $redirectTo = '/';
-        }
-        return view('tasks.show', [
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.show', [
             'task' => $task,
-        ]);   //
+            ]);   
+        }
+        
+        $redirectTo = '/';
+        
     }
 
     /**
@@ -87,12 +89,13 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        if (auth()->user()->id !== $task->user_id) {
-           $redirectTo = '/';
-        }
-        return view('tasks.edit', [
+        
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.edit', [
             'task' => $task,
-        ]);
+            ]);
+        }
+        $redirectTo = '/';
     }
 
     /**
@@ -123,14 +126,13 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        
         $task = Task::find($id);
-        if (auth()->user()->id !== $task->user_id) {
-           $redirectTo = '/';
+        if (\Auth::id() === $task->user_id) {
+            $task->delete();
+            return redirect('/tasks');
         }
-        $task->delete();
-
-        return redirect('/tasks');
+        $redirectTo = '/';
+        
     }
     public function __construct()
     {
